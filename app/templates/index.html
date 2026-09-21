@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShedTrace Dashboard</title>
+    <meta name="description" content="ShedTrace live monitoring dashboard for microfiber shedding." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Student IoT Capstone</p>
+          <h1>ShedTrace</h1>
+        </div>
+        <div class="header-actions">
+          <button id="simulate-wash-btn" class="action-button primary">Simulate a wash</button>
+          <button id="clean-filter-btn" class="action-button secondary">Clean filter</button>
+        </div>
+      </header>
+
+      <main class="dashboard-grid">
+        <section class="panel gauge-panel">
+          <div class="panel-header">
+            <div>
+              <p class="section-label">Filter status</p>
+              <h2>Microfiber load</h2>
+            </div>
+            <span id="status-badge" class="status-badge">Monitoring</span>
+          </div>
+
+          <div class="gauge-wrapper">
+            <svg class="gauge" viewBox="0 0 220 220" role="img" aria-labelledby="gauge-title gauge-desc">
+              <title id="gauge-title">Microfiber gauge</title>
+              <desc id="gauge-desc">Circular gauge showing cumulative microfiber mass against a 500 milligram threshold.</desc>
+              <circle class="gauge-track" cx="110" cy="110" r="84"></circle>
+              <circle id="gauge-progress" class="gauge-progress" cx="110" cy="110" r="84"></circle>
+            </svg>
+            <div class="gauge-contents">
+              <div id="gauge-value" class="gauge-value">0.0 mg</div>
+              <div id="gauge-threshold" class="gauge-threshold">of 500 mg</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel stats-panel">
+          <div class="stats-grid">
+            <article class="stat-card">
+              <span class="stat-label">Total washes</span>
+              <strong id="total-washes">0</strong>
+            </article>
+            <article class="stat-card">
+              <span class="stat-label">Lifetime mg captured</span>
+              <strong id="lifetime-mg">0 mg</strong>
+            </article>
+            <article class="stat-card">
+              <span class="stat-label">Avg mg per wash</span>
+              <strong id="avg-mg">0 mg</strong>
+            </article>
+            <article class="stat-card">
+              <span class="stat-label">Time since last wash</span>
+              <strong id="time-since-last-wash">No data</strong>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel chart-panel">
+          <div class="panel-header compact">
+            <div>
+              <p class="section-label">Recent wash trend</p>
+              <h2>Last 10 washes</h2>
+            </div>
+          </div>
+          <div id="chart-bars" class="chart-bars" aria-live="polite"></div>
+        </section>
+
+        <section class="panel history-panel">
+          <div class="panel-header compact">
+            <div>
+              <p class="section-label">Events</p>
+              <h2>Wash and reset history</h2>
+            </div>
+          </div>
+          <div id="history-list" class="history-list" aria-live="polite"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+  </body>
+</html>
